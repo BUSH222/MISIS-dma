@@ -10,13 +10,14 @@ SCREENW = 1000
 SCREENH = 800
 FPS = 50
 BGCOLOR = (0, 0, 0)
+NUM_CITIES = 10
 
 display = pygame.display.set_mode((SCREENW, SCREENH))  # w, h
 clock = pygame.time.Clock()
 
 # City coordinates
 cities = []
-for _ in range(4):
+for _ in range(NUM_CITIES):
     x = random.randint(0, SCREENW - 1)
     y = random.randint(0, SCREENH - 1)
     cities.append((x, y))
@@ -28,7 +29,7 @@ def game():
     dist_visible = False
     best_path_visible = False
     best_path, best_path_length, pheromones = ant_colony.run()
-    print("Best path:", best_path)
+    print("Distance:", best_path_length)
     while True:
         display.fill(BGCOLOR)
         for event in pygame.event.get():
@@ -39,11 +40,13 @@ def game():
                     return
                 elif event.key == pygame.K_SPACE:
                     best_path, best_path_length, pheromones = ant_colony.run()
-                    print("Best path:", best_path)
+                    print("Distance", best_path_length)
                 elif event.key == pygame.K_t:
                     dist_visible = not dist_visible
                 elif event.key == pygame.K_b:
                     best_path_visible = not best_path_visible
+                elif event.key == pygame.K_r:
+                    ant_colony.reset_pheromones()
         mouse_pos = pygame.mouse.get_pos()
         mouse_pressed = pygame.mouse.get_pressed()
 
@@ -77,6 +80,8 @@ def game():
         for i in range(len(pheromones)):
             for j in range(i + 1, len(pheromones)):
                 pheromone_percentage = pheromones[i][j] / max_pheromone
+                if pheromone_percentage <= 0.1:
+                    continue
                 color = (int(pheromone_percentage * 255), int(pheromone_percentage * 255), 0)
                 pygame.draw.line(display, color, cities[i], cities[j], 1)
         clock.tick(FPS)

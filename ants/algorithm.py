@@ -16,7 +16,6 @@ class AntColony:
     def run(self):
         best_path = None
         best_path_length = float('inf')
-
         # for _ in range(self.n_iterations):
         paths = []
         path_lengths = []
@@ -76,6 +75,9 @@ class AntColony:
         self.distances = new_distances
         assert self.n_cities == len(new_distances)
 
+    def reset_pheromones(self):
+        self.pheromones = np.ones((self.n_cities, self.n_cities))
+
 
 if __name__ == "__main__":
     distances = [
@@ -86,6 +88,6 @@ if __name__ == "__main__":
     ]
     ant_colony = AntColony(distances, n_ants=10)
     while input() == '':
-        best_path, best_path_length, pheromones = ant_colony.run()
+        best_path, best_path_length, pheromones = ant_colony.run()  # Uncomment line 19 to test
         print("Best path:", best_path)
         print("Best path length:", best_path_length)
