@@ -10,7 +10,7 @@ SCREENW = 1000
 SCREENH = 800
 FPS = 50
 BGCOLOR = (0, 0, 0)
-NUM_CITIES = 10
+NUM_CITIES = 100
 
 display = pygame.display.set_mode((SCREENW, SCREENH))  # w, h
 clock = pygame.time.Clock()
