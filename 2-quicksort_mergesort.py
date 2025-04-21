@@ -1,32 +1,49 @@
 # n1
 # TEST - quicksort_tests.zip
 
-def quicksort(arr, s, e):
-    thing = [(s, e)]
+# In-place:
+# def quicksort(arr, s, e):
+#     thing = [(s, e)]
 
-    while thing:
-        low, high = thing.pop()
-        if low < high:
-            pivot_index = rearrange(arr, low, high)
-            thing.append((low, pivot_index - 1))
-            thing.append((pivot_index + 1, high))
+#     while thing:
+#         low, high = thing.pop()
+#         if low < high:
+#             pivot_index = rearrange(arr, low, high)
+#             thing.append((low, pivot_index - 1))
+#             thing.append((pivot_index + 1, high))
 
 
-def rearrange(arr, low, high):
-    pivot = arr[high]
-    i = low - 1
-    for j in range(low, high):
-        if arr[j] < pivot:
-            i += 1
-            arr[i], arr[j] = arr[j], arr[i]
-    arr[i + 1], arr[high] = arr[high], arr[i + 1]
-    return i + 1
+# def rearrange(arr, low, high):
+#     pivot = arr[high]
+#     i = low - 1
+#     for j in range(low, high):
+#         if arr[j] < pivot:
+#             i += 1
+#             arr[i], arr[j] = arr[j], arr[i]
+#     arr[i + 1], arr[high] = arr[high], arr[i + 1]
+#     return i + 1
 
 
 # N = int(input())
 # arr = list(map(int, input().split()))
 # quicksort(arr, 0, N - 1)
 # print(' '.join(map(str, arr)))
+
+def quicksort(array):
+    if len(array) < 2:
+        return array
+
+    pivot = array[len(array) // 2]
+    L = [i for i in array if i < pivot]
+    M = [i for i in array if i == pivot]
+    R = [i for i in array if i > pivot]
+
+    return quicksort(L) + M + quicksort(R)
+
+
+# N = int(input())
+# array = list(map(int, (input()).split()))
+# print(*quicksort(array))
 
 
 # n2
@@ -75,7 +92,6 @@ def merge(arr, thing, left, mid, right):
 
 # n3
 # TEST - merge_sort.zip
-# I will implement a heapsort
 
 
 def heapify(arr, n, i):

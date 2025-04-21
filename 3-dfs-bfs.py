@@ -1,7 +1,7 @@
 from collections import deque
 
 # n1
-# TEST - ??
+# TEST - bfs_tests.zip
 
 
 def bfs(graph, start):
@@ -32,7 +32,7 @@ def bfs(graph, start):
 
 
 # n2
-# TEST - ??
+# TEST - dfs_tests.zip
 
 
 def dfs(graph, start):
